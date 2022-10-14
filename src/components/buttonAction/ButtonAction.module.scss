@@ -1,0 +1,13 @@
+.ButtonAction {
+	border: 1px solid #92256E;
+	background: #fff;
+	color: #92256E;
+	padding: .3rem .7rem;
+	border-radius: 5px;
+	transition: background .3s, color .3s;
+
+	&:hover {
+		background: #92256E;
+		color: #fff;
+	}
+}
