@@ -21,6 +21,7 @@ export default function ItemList(props: IItemList) {
 					roi={it.roi}
 					free={it.free}
 					hedge={it.hedge}
+					key={it.name}
 				/>
 			)}
 		</tbody>

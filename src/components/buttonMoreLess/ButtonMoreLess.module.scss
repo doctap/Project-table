@@ -1,0 +1,45 @@
+.ArrowButtons {
+	display: flex;
+	flex-direction: column;
+	width: 1.5rem;
+
+	&>* {
+		position: relative;
+		font-family: Material icons;
+		background: #fff;
+		font-weight: 700;
+		font-size: 1rem;
+		height: .8rem;
+		border: none;
+
+		.buttonTop {
+			position: absolute;
+			bottom: -5px;
+			right: .15rem;
+			color: rgb(129, 128, 128);
+
+			&:active {
+				color: #000;
+			}
+		}
+
+		.buttonBottom {
+			position: absolute;
+			top: -5px;
+			right: .15rem;
+			color: rgb(129, 128, 128);
+
+			&:active {
+				color: #000;
+			}
+		}
+
+	}
+
+}
+
+.material-symbols-outlined {
+  
+  
+
+}
