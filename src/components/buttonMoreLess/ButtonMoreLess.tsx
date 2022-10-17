@@ -1,7 +1,13 @@
 import React from 'react';
 import styles from './ButtonMoreLess.module.scss';
 
-export default function ButtonMoreLess() {
+interface IButtonMoreLess {
+	showButtonMoreLess?: boolean;
+}
+
+export default function ButtonMoreLess(props: IButtonMoreLess) {
+
+	if (!props.showButtonMoreLess ?? false) return null;
 	return (
 		<div className={styles.ArrowButtons}>
 			<button><span className={styles.buttonTop}>expand_less</span></button>

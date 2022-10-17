@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
+import { ItemKeys } from '../../server/Server';
 import styles from './Select.module.scss';
 
 interface ISelect {
 	options: string[];
-	onSelect: (option: string) => void
+	onSelect: (option: string, key: ItemKeys) => void;
+	defaultState: string;
+	basisSelect: ItemKeys;
 }
 
-export default function Select(props: ISelect) {
+export default function Select(props: ISelect, key: ItemKeys) {
 
 	const [showList, setShowList] = useState(false);
-	const [selectedOption, setSelectedOption] = useState('All')
+	const [selectedOption, setSelectedOption] = useState(props.defaultState)
 
 	const getOption = (event: React.MouseEvent<HTMLButtonElement>) => {
 		const elem = event.currentTarget;
-		props.onSelect(elem.name);
+		props.onSelect(elem.name, props.basisSelect);
 		setSelectedOption(elem.name);
 		setShowList(false);
 	};

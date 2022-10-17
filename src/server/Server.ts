@@ -11,6 +11,8 @@ export interface IItemRow {
 	hedge: number;
 }
 
+export type ItemKeys = 'id' | 'name' | 'status' | 'type' | 'conditions' | 'volume' | 'roi' | 'free' | 'hedge';
+
 export const items: IItemRow[] = [
 	{ id: 1, name: 'Pyshky.net', status: 'green', type: 'TRST', conditions: 'x2,6 months', volume: 120000, roi: 4, free: 20, hedge: 20 },
 	{ id: 2, name: 'NFT-Flowershop', status: 'yellow', type: 'THT', conditions: 'x4,2 years', volume: 80000, roi: 23, free: 12, hedge: 0 },
