@@ -9,7 +9,7 @@ interface ISelect {
 	basisSelect: ItemKeys;
 }
 
-export default function Select(props: ISelect, key: ItemKeys) {
+export default function Select(props: ISelect) {
 
 	const [showList, setShowList] = useState(false);
 	const [selectedOption, setSelectedOption] = useState(props.defaultState)
@@ -25,7 +25,12 @@ export default function Select(props: ISelect, key: ItemKeys) {
 		<div className={styles.wrapper}>
 			<button className={styles.selectButton} onClick={() => setShowList(!showList)} children='expand_more' />
 
-			<span>{selectedOption}</span>
+			<span
+				className={styles.currentOption}
+				onClick={() => setShowList(!showList)}
+			>
+				{selectedOption}
+			</span>
 
 			{
 				showList

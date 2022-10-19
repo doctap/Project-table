@@ -1,4 +1,3 @@
-
 export interface IItemRow {
 	id: number;
 	name: string;

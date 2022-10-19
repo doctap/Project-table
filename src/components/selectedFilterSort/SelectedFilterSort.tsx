@@ -6,14 +6,14 @@ import Select from '../select/Select';
 import styles from './SelectedFilterSort.module.scss';
 
 interface ISelectedFilterSort {
-	showButtonMoreLess: boolean;
+	// showButtonMoreLess: boolean;
 	options: string[];
 	defaultSelectState: string;
 	getFilterParam: (filter: string, key: ItemKeys) => void;
 	baseSelect: ItemKeys;
 	buttonSortText: string;
 	baseButtonSort: ItemKeys;
-	onClickButtonSort: (sort: string) => void;
+	onClickButtonSort: (sort: ItemKeys, isRevers: boolean) => void;
 }
 
 export default function SelectedFilterSort(props: ISelectedFilterSort) {
@@ -27,8 +27,6 @@ export default function SelectedFilterSort(props: ISelectedFilterSort) {
 			<Select options={statuses} basisSelect={props.baseSelect} onSelect={props.getFilterParam} defaultState={props.defaultSelectState} />
 
 			<ButtonSort baseSort={props.baseButtonSort} text={props.buttonSortText} onClick={props.onClickButtonSort} />
-
-			<ButtonMoreLess showButtonMoreLess={props.showButtonMoreLess} />
 		</div>
 	)
 }

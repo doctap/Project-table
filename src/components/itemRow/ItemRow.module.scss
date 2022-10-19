@@ -1,0 +1,27 @@
+.row {
+	height: 4rem;
+
+	td:first-child {
+		padding-left: 1.8rem;
+	}
+
+	td:last-child {
+		padding-right: 1.8rem;
+		text-align: right;
+	}
+
+	.cellStatus {
+		display: flex;
+		align-items: center;
+
+		.statusColor {
+			border-radius: 50%;
+			height: 1rem;
+			min-width: 1rem;
+		}
+
+		.name {
+			padding-left: 1rem;
+		}
+	}
+}

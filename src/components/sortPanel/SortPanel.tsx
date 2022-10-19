@@ -2,24 +2,22 @@ import React from 'react'
 import { IItemRow, ItemKeys } from '../../server/Server'
 import ButtonSort from '../buttonSort/ButtonSort'
 import SelectedFilterSort from '../selectedFilterSort/SelectedFilterSort'
+import styles from './SortPanel.module.scss';
 
 interface ISortPanel {
 	items: IItemRow[];
 	selectedFilter: (filter: string, key: ItemKeys) => void;
-	sortedItems: (sort: string) => void;
+	sortedItems: (sort: ItemKeys, isRevers: boolean) => void;
 }
 
 export default function SortPanel(props: ISortPanel) {
-
-
-
 	return (
-		<thead>
-			<tr>
+		<thead className={styles.panel}>
+			<tr className={styles.Row}>
 				<td>
 					<SelectedFilterSort
 						getFilterParam={props.selectedFilter}
-						showButtonMoreLess={true}
+						// showButtonMoreLess={true}
 						options={props.items.map(it => it.status)}
 						defaultSelectState='All'
 						baseSelect='status'
@@ -31,13 +29,13 @@ export default function SortPanel(props: ISortPanel) {
 				<td>
 					<SelectedFilterSort
 						getFilterParam={props.selectedFilter}
-						showButtonMoreLess={false}
+						// showButtonMoreLess={false}
 						options={props.items.map(it => it.type)}
 						defaultSelectState='All'
 						baseSelect='type'
 						buttonSortText='Token type'
 						baseButtonSort='type'
-						 onClickButtonSort={props.sortedItems}
+						onClickButtonSort={props.sortedItems}
 					/>
 				</td>
 				<td>

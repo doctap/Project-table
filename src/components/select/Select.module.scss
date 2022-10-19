@@ -1,14 +1,26 @@
 .wrapper {
 	display: flex;
 	position: relative;
-	border: 1px solid;
 	width: fit-content;
+	height: fit-content;
 
 	.selectButton {
 		font-family: Material icons;
 		font-size: 1.3rem;
 		font-weight: 600;
+		color: rgb(132, 132, 132);
+		background: rgba(255, 255, 255, 0);
+		border: none;
+		cursor: pointer;
 		padding: 0;
+	}
+
+	.currentOption {
+		background: rgb(125, 125, 125);
+		color: #fff;
+		padding: .2rem;
+		border-radius: 3px;
+		cursor: pointer;
 	}
 
 	.list {
