@@ -2,13 +2,22 @@ import React from 'react';
 import { IItemRow } from '../../server/Server';
 import ButtonAction from '../buttonAction/ButtonAction';
 import styles from './ItemRow.module.scss';
+import { useNavigate } from "react-router-dom";
 
 export default function ItemRow(props: IItemRow) {
+
+	const navigate = useNavigate();
+
+	const rerouteOnProjectPage = () => {
+		navigate(`/${props.name}`);
+	};
+
 	return (
 		<tr
 			id={props.id.toString()}
 			className={styles.row}
 			style={{ background: getColorStatus(props.status, true) }}
+			onClick={rerouteOnProjectPage}
 		>
 			<td>
 				<div className={styles.cellStatus}>

@@ -1,5 +1,12 @@
-.ItemTable {
-	width: 100%;
-	border-collapse: separate;
-	border-spacing: 0 10px;
+@import '../../fonts/iconfont/material-icons.css';
+
+.wrapper {
+	padding: 1rem 3rem;
+	min-width: fit-content;
+
+	.ItemTable {
+		width: 100%;
+		border-collapse: separate;
+		border-spacing: 0 10px;
+	}
 }
