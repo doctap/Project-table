@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ItemKeys } from '../../server/Server';
+import Option from '../option/Option';
 import styles from './Select.module.scss';
 
-interface ISelect {
-	options: string[];
-	onSelect: (option: string, key: ItemKeys) => void;
-	defaultState: string;
+interface ISelect<T> {
+	options: T[];
+	onSelect: (option: T) => void;
 	basisSelect: ItemKeys;
 }
 
-export default function Select(props: ISelect) {
+export default function Select<T>(props: ISelect<T>) {
 
 	const [showList, setShowList] = useState(false);
-	const [selectedOption, setSelectedOption] = useState(props.defaultState)
+	const [selectedOption, setSelectedOption] = useState<T>(props.options[0]);
 
-	const getOption = (event: React.MouseEvent<HTMLButtonElement>) => {
-		const elem = event.currentTarget;
-		props.onSelect(elem.name, props.basisSelect);
-		setSelectedOption(elem.name);
+	const getOption = (select: T) => {
+		props.onSelect(select);
+		setSelectedOption(select);
 		setShowList(false);
 	};
+
+	console.log('from Select ', props.options)
 
 	return (
 		<div className={styles.wrapper}>
@@ -29,19 +30,22 @@ export default function Select(props: ISelect) {
 				className={styles.currentOption}
 				onClick={() => setShowList(!showList)}
 			>
-				{selectedOption}
+				{String(selectedOption)}
 			</span>
-
 			{
 				showList
 					?
 					<ul className={styles.list}>
-						{props.options.map(o => <li key={o}><button children={o} name={o} onClick={getOption} /></li>)}
+						{
+							props.options.map(o =>
+								<li key={String(o)}>
+									<Option select={o} onClick={getOption} />
+								</li>)
+						}
 					</ul>
 					:
 					null
 			}
-
 		</div>
 	)
 }

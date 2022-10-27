@@ -1,57 +1,64 @@
-import React from 'react'
-import { IItemRow, ItemKeys } from '../../server/Server'
+import React, { useEffect } from 'react'
+import { IItemRow, Statuses, Types } from '../../server/Server'
+import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
+import { projectSlice } from '../../store/reducers/ProjectSlice';
+import ButtonMoreLess from '../buttonMoreLess/ButtonMoreLess';
 import ButtonSort from '../buttonSort/ButtonSort'
 import SelectedFilterSort from '../selectedFilterSort/SelectedFilterSort'
 import styles from './SortPanel.module.scss';
 
 interface ISortPanel {
-	items: IItemRow[];
-	selectedFilter: (filter: string, key: ItemKeys) => void;
-	sortedItems: (sort: ItemKeys, isRevers: boolean) => void;
+	projects: IItemRow[];
 }
 
 export default function SortPanel(props: ISortPanel) {
+
+	const dispatch = useAppDispatch();
+	// const { statuses, types } = useAppSelector(state => state.httpClientProjectReducer);
+	const { onFilterByStatus, onFilterByType, onSortProjects } = projectSlice.actions;
+
 	return (
 		<thead className={styles.panel}>
 			<tr className={styles.Row}>
 				<td>
-					<SelectedFilterSort
-						getFilterParam={props.selectedFilter}
-						// showButtonMoreLess={true}
-						options={props.items.map(it => it.status)}
-						defaultSelectState='All'
+					<SelectedFilterSort<Statuses>
+						onFilterByStatus={option => dispatch(onFilterByStatus(option))}
+						options={['All', 'green', 'yellow', 'red']}
 						baseSelect='status'
 						buttonSortText='Project'
 						baseButtonSort='name'
-						onClickButtonSort={props.sortedItems}
+						onClickButtonSort={action => dispatch(onSortProjects(action))}
+						showButtons={true}
 					/>
 				</td>
 				<td>
-					<SelectedFilterSort
-						getFilterParam={props.selectedFilter}
-						// showButtonMoreLess={false}
-						options={props.items.map(it => it.type)}
-						defaultSelectState='All'
+					<SelectedFilterSort<Types>
+						onFilterByStatus={option => dispatch(onFilterByType(option))}
+						options={['All', 'THT', 'TRST']}
 						baseSelect='type'
 						buttonSortText='Token type'
 						baseButtonSort='type'
-						onClickButtonSort={props.sortedItems}
+						onClickButtonSort={action => dispatch(onSortProjects(action))}
+						showButtons={false}
 					/>
 				</td>
 				<td>
-					<ButtonSort baseSort='conditions' text='Conditions' onClick={props.sortedItems} />
+					<ButtonSort baseSort='conditions' text='Conditions' onClick={action => dispatch(onSortProjects(action))} />
 				</td>
 				<td>
-					<ButtonSort baseSort='volume' text='Volume' onClick={props.sortedItems} />
+					<div className={styles.volume}>
+						<ButtonSort baseSort='volume' text='Volume' onClick={action => dispatch(onSortProjects(action))} />
+						<ButtonMoreLess />
+					</div>
 				</td>
 				<td>
-					<ButtonSort baseSort='roi' text='ROI' onClick={props.sortedItems} />
+					<ButtonSort baseSort='roi' text='ROI' onClick={action => dispatch(onSortProjects(action))} />
 				</td>
 				<td>
-					<ButtonSort baseSort='free' text='Free float' onClick={props.sortedItems} />
+					<ButtonSort baseSort='free' text='Free float' onClick={action => dispatch(onSortProjects(action))} />
 				</td>
 				<td>
-					<ButtonSort baseSort='hedge' text='Insurance henge' onClick={props.sortedItems} />
+					<ButtonSort baseSort='hedge' text='Insurance henge' onClick={action => dispatch(onSortProjects(action))} />
 				</td>
 			</tr>
 		</thead>

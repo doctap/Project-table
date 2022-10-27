@@ -1,7 +1,6 @@
 import React from 'react';
 import { IItemRow } from '../../server/Server';
 import ItemRow from '../itemRow/ItemRow';
-import styles from './ItemList.module.scss';
 
 interface IItemList {
 	items: IItemRow[];
@@ -21,6 +20,7 @@ export default function ItemList(props: IItemList) {
 					roi={it.roi}
 					free={it.free}
 					hedge={it.hedge}
+					key={it.name}
 				/>
 			)}
 		</tbody>

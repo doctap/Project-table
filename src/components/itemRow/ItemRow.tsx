@@ -10,7 +10,12 @@ export default function ItemRow(props: IItemRow) {
 
 	const rerouteOnProjectPage = () => {
 		navigate(`/${props.name}`);
-	};
+	}
+
+	const onBuy = (event: React.MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
+		console.log('order id: ', props.id.toString());
+	}
 
 	return (
 		<tr
@@ -35,7 +40,7 @@ export default function ItemRow(props: IItemRow) {
 			<td>{props.free}</td>
 			<td>&#37; {props.hedge}</td>
 			<td>
-				<ButtonAction onClick={() => console.log('order id: ', props.id.toString())} buttonText='Buy' />
+				<ButtonAction onClick={onBuy}  buttonText='Buy' />
 			</td>
 		</tr>
 	)

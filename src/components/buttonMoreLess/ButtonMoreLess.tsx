@@ -1,17 +1,16 @@
 import React from 'react';
 import styles from './ButtonMoreLess.module.scss';
+import ButtonTick from './buttonTick/ButtonTick';
 
-interface IButtonMoreLess {
-	showButtonMoreLess?: boolean;
-}
-
-export default function ButtonMoreLess(props: IButtonMoreLess) {
-
-	if (!props.showButtonMoreLess ?? false) return null;
+export default function ButtonMoreLess() {
 	return (
 		<div className={styles.ArrowButtons}>
-			<button><span className={styles.buttonTop}>expand_less</span></button>
-			<button><span className={styles.buttonBottom}>expand_more</span></button>
+			<div className={styles.buttonTop}>
+				<ButtonTick />
+			</div>
+			<div className={styles.buttonBottom}>
+				<ButtonTick />
+			</div>
 		</div>
 	)
 }

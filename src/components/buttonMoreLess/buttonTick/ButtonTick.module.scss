@@ -1,0 +1,24 @@
+.buttonTick {
+	position: relative;
+	height: .7rem;
+	width: 1rem;
+	padding: 0;
+	display: flex;
+	border: none;
+	background: #fff;
+
+	.tick {
+		font-family: Material Icons;
+		font-size: 1rem;
+		font-weight: 600;
+		position: absolute;
+		align-items: end;
+		justify-content: start;
+		color: rgb(132, 131, 131);
+
+		&:active {
+
+			color: rgb(75, 74, 74);
+		}
+	}
+}

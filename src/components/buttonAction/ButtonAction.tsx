@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './ButtonAction.module.scss';
 
 interface IButtonAction {
-	onClick: () => void;
+	onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 	buttonText: string;
 }
 
