@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ItemKeys } from '../../server/Server';
 import Option from '../option/Option';
 import styles from './Select.module.scss';
@@ -19,8 +19,6 @@ export default function Select<T>(props: ISelect<T>) {
 		setSelectedOption(select);
 		setShowList(false);
 	};
-
-	console.log('from Select ', props.options)
 
 	return (
 		<div className={styles.wrapper}>

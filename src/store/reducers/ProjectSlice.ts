@@ -1,23 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import server, { IItemRow, ItemKeys, Statuses, Types } from "../../server/Server";
+import server, { IItemRow, Statuses, Types } from "../../server/Server";
+import errorHandler from "../ErrorHandler";
+import { IRequestSortProjects, IRequestAllProjects } from "../interfacies/Interfacies";
 
-export interface IActionSort {
-	key: ItemKeys;
-	isRevers: boolean;
+export interface IProjectState<T> {
+	projects: T;
+	isError: boolean;
+	errorMessage: string;
 }
 
-interface IRequest {
-	skip?: number;
-	take?: number;
-}
-
-interface IProjectState {
-	projects: IItemRow[];
-
-}
-
-const initialState: IProjectState = {
+const initialState: IProjectState<IItemRow[]> = {
 	projects: [],
+	isError: false,
+	errorMessage: '',
 }
 
 export const projectSlice = createSlice({
@@ -25,19 +20,42 @@ export const projectSlice = createSlice({
 	initialState,
 	reducers: {
 		onFilterByStatus(state, action: PayloadAction<Statuses>) {
-			state.projects = (action.payload !== 'All') ? server.onFilterByStatus(action.payload) : server.getProjects()
+			(action.payload !== 'All')
+				?
+				errorHandler<Statuses, IItemRow[]>(server.onFilterByStatus, action.payload)
+					.then(res => !res.isError ? state.projects = res.projects : (state.errorMessage = res.errorMessage, state.isError = res.isError))
+				:
+				errorHandler<IRequestAllProjects, IItemRow[]>(server.getProjects, { skip: 0 })
+					.then(res => !res.isError ? state.projects = res.projects : (state.errorMessage = res.errorMessage, state.isError = res.isError));
 		},
+
 		onFilterByType(state, action: PayloadAction<Types>) {
-			state.projects = (action.payload !== 'All') ? server.onFilterByType(action.payload) : server.getProjects()
+			(action.payload !== 'All')
+				?
+				errorHandler<Types, IItemRow[]>(server.onFilterByType, action.payload)
+					.then(res => !res.isError ? state.projects = res.projects : (state.errorMessage = res.errorMessage, state.isError = res.isError))
+				:
+				errorHandler<IRequestAllProjects, IItemRow[]>(server.getProjects, { skip: 0 })
+					.then(res => !res.isError ? state.projects = res.projects : (state.errorMessage = res.errorMessage, state.isError = res.isError));
 		},
-		onSortProjects(state, action: PayloadAction<IActionSort>) {
-			state.projects = server.onSortProjects(action.payload.key, action.payload.isRevers)
+
+		onSortProjects(state, action: PayloadAction<IRequestSortProjects>) {
+			errorHandler<IRequestSortProjects, IItemRow[]>(server.onSortProjects, action.payload)
+				.then(res => !res.isError ? state.projects = res.projects : (state.errorMessage = res.errorMessage, state.isError = res.isError));
 		},
-		getProjects(state, action: PayloadAction<IRequest>) {
-			state.projects = server.getProjects(action.payload.skip, action.payload.take)
+
+		getProjects(state, action: PayloadAction<IRequestAllProjects>) {
+			errorHandler<IRequestAllProjects, IItemRow[]>(server.getProjects, action.payload)
+				.then(res => state.projects = res.projects);
 		},
+
+		fetchingError(state, action: PayloadAction<string>) {
+			state.isError = true;
+			state.errorMessage = action.payload;
+		}
 	}
-})
+});
 
 export default projectSlice.reducer;
 
+//!res.isError ? state.projects = res.projects : (state.errorMessage = res.errorMessage, state.isError = res.isError)

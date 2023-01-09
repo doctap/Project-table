@@ -1,11 +1,11 @@
 import React from 'react';
 import { ItemKeys } from '../../server/Server';
-import { IActionSort } from '../../store/reducers/ProjectSlice';
+import { IRequestSortProjects } from '../../store/interfacies/Interfacies';
 import styles from './ButtonSort.module.scss';
 
 interface IButtonSort {
 	text: string;
-	onClick: (action: IActionSort) => void;
+	onClick: (action: IRequestSortProjects) => void;
 	baseSort: ItemKeys;
 }
 

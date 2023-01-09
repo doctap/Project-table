@@ -1,6 +1,6 @@
 import React from 'react';
 import { ItemKeys } from '../../server/Server';
-import { IActionSort } from '../../store/reducers/ProjectSlice';
+import { IRequestSortProjects } from '../../store/interfacies/Interfacies';
 import ButtonMoreLess from '../buttonMoreLess/ButtonMoreLess';
 import ButtonSort from '../buttonSort/ButtonSort';
 import Select from '../select/Select';
@@ -12,7 +12,7 @@ interface ISelectedFilterSort<T> {
 	baseSelect: ItemKeys;
 	buttonSortText: string;
 	baseButtonSort: ItemKeys;
-	onClickButtonSort: (action: IActionSort) => void;
+	onClickButtonSort: (action: IRequestSortProjects) => void;
 	showButtons: boolean;
 }
 

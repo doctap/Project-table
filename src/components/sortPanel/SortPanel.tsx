@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { IItemRow, Statuses, Types } from '../../server/Server'
-import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
+import { useAppDispatch } from '../../store/hooks/redux';
 import { projectSlice } from '../../store/reducers/ProjectSlice';
 import ButtonMoreLess from '../buttonMoreLess/ButtonMoreLess';
 import ButtonSort from '../buttonSort/ButtonSort'
@@ -14,7 +14,6 @@ interface ISortPanel {
 export default function SortPanel(props: ISortPanel) {
 
 	const dispatch = useAppDispatch();
-	// const { statuses, types } = useAppSelector(state => state.httpClientProjectReducer);
 	const { onFilterByStatus, onFilterByType, onSortProjects } = projectSlice.actions;
 
 	return (

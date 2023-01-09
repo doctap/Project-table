@@ -1,3 +1,5 @@
+import { IRequestSortProjects } from "../store/interfacies/Interfacies";
+
 export interface IItemRow {
 	id: number;
 	name: string;
@@ -8,6 +10,11 @@ export interface IItemRow {
 	roi: number;
 	free: number;
 	hedge: number;
+}
+
+interface IRequest {
+	skip?: number;
+	take?: number;
 }
 
 export type ItemKeys = 'id' | 'name' | 'status' | 'type' | 'conditions' | 'volume' | 'roi' | 'free' | 'hedge';
@@ -24,21 +31,22 @@ const items: IItemRow[] = [
 ];
 
 const server_APi = {
-	getProjects: (skip?: number, take?: number) => items.slice(skip, take),
-	onFilterByStatus: (filteredBy: Statuses) => items.filter(pr => pr.status === filteredBy),
-	onFilterByType: (filtered: Types) => items.filter(pr => pr.type === filtered),
-	onSortProjects: (sortBy: ItemKeys, isRevers: boolean) => {
-		if (isRevers) {
+	getProjects: (params: IRequest) => Promise.resolve(items.slice(params.skip, params.take)),
+	onFilterByStatus: (filteredBy: Statuses) => Promise.resolve(items.filter(pr => pr.status === filteredBy)),
+	onFilterByType: (filtered: Types) => Promise.resolve(items.filter(pr => pr.type === filtered)),
+	onSortProjects: (params: IRequestSortProjects) => {
+		const sortBy = params.key;
+		if (params.isRevers) {
 			if (sortBy === 'conditions') {
-				return [...getSortedDates(items).reverse()]
+				return Promise.resolve([...getSortedDates(items).reverse()])
 			} else {
-				return [...items.sort((a, b) => a[sortBy] === b[sortBy] ? 0 : a[sortBy] < b[sortBy] ? -1 : 1).reverse()]
+				return Promise.resolve([...items.sort((a, b) => a[sortBy] === b[sortBy] ? 0 : a[sortBy] < b[sortBy] ? -1 : 1).reverse()])
 			}
 		} else {
 			if (sortBy === 'conditions') {
-				return [...getSortedDates(items)]
+				return Promise.resolve([...getSortedDates(items)])
 			} else {
-				return [...items.sort((a, b) => a[sortBy] === b[sortBy] ? 0 : a[sortBy] < b[sortBy] ? -1 : 1)]
+				return Promise.resolve([...items.sort((a, b) => a[sortBy] === b[sortBy] ? 0 : a[sortBy] < b[sortBy] ? -1 : 1)])
 			}
 		}
 	},
